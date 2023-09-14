@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import "./index.css";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Layout from "./Components/Layout";
+import Home from "./Components/Home";
+import Cart from "./Components/Cart";
+import ProductDeatils from "./Components/ProductDeatils";
+import NotFound from "./Components/NotFound";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App(props) {
+  
+let routers = createBrowserRouter([
+  {path: "/" , element : <Layout /> , errorElement : <NotFound/>, children : [
+    {index:true , element :  <Home/> },
+    {path:"cart", element :  <Cart/> },
+    {path:"productdetails/:productID", element :  <ProductDeatils/> },
+  ]}
+])
+
+  return <RouterProvider router={routers}>
+      {props.children}
+  </RouterProvider>
+
 }
-
-export default App;
